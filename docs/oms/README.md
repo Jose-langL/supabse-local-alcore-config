@@ -45,9 +45,10 @@ Makefile
 5. `docs/oms/SUPABASE_COMPONENT_MATRIX.md`
 6. `docs/oms/OPERATIONS_CHECKLIST.md`
 7. `docs/oms/SUPABASE_2026_NOTES.md`
-8. `docs/oms/table_to_entity_mapping.csv`
-9. `docs/oms/legacy_to_canonical_mapping.csv`
-10. `supabase/migrations/`
+8. `docs/oms/API_USER_TYPES_STUDENTS.md`
+9. `docs/oms/table_to_entity_mapping.csv`
+10. `docs/oms/legacy_to_canonical_mapping.csv`
+11. `supabase/migrations/`
 
 ## Principio de consumo
 

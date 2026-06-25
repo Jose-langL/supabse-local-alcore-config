@@ -16,8 +16,12 @@ required_files=(
   "supabase/migrations/20260615000400_oms_transform_case_requests.sql"
   "supabase/migrations/20260615000500_oms_transform_reference_entities.sql"
   "supabase/migrations/20260615000600_oms_rls_baseline.sql"
+  "supabase/migrations/20260625000100_oms_user_types_api.sql"
   "supabase/tests/001_migration_quality_checks.sql"
+  "supabase/tests/002_user_types_api_checks.sql"
   "supabase/functions/oms-health/index.ts"
+  "supabase/functions/_shared/cors.ts"
+  "supabase/functions/user-types/index.ts"
   "docs/oms/legacy_to_canonical_mapping.csv"
   "docs/oms/table_to_entity_mapping.csv"
   "docs/oms/normalization_summary.json"
@@ -26,6 +30,7 @@ required_files=(
   "docs/oms/SUPABASE_COMPONENT_MATRIX.md"
   "docs/oms/OPERATIONS_CHECKLIST.md"
   "docs/oms/SUPABASE_2026_NOTES.md"
+  "docs/oms/API_USER_TYPES_STUDENTS.md"
 )
 
 for file in "${required_files[@]}"; do
@@ -62,6 +67,22 @@ assert len(fields) == 41460, f"campos mapeados esperados=41460 actuales={len(fie
 assert summary["legacy_tables"] == 1180, summary["legacy_tables"]
 assert summary["legacy_columns"] == 41460, summary["legacy_columns"]
 print("OMS mapping OK: 1,180 tablas legacy y 41,460 campos.")
+PY
+
+python3 - <<'PY'
+from pathlib import Path
+
+migration = Path("supabase/migrations/20260625000100_oms_user_types_api.sql").read_text()
+required_fragments = [
+    "CREATE TABLE IF NOT EXISTS oms.user_type",
+    "CREATE TABLE IF NOT EXISTS oms.user_account_type",
+    "ALTER TABLE oms.user_type ENABLE ROW LEVEL SECURITY",
+    "CREATE POLICY",
+    "GRANT SELECT, INSERT, UPDATE, DELETE ON oms.user_type TO authenticated",
+]
+for fragment in required_fragments:
+    assert fragment in migration, f"fragmento faltante en API user types: {fragment}"
+print("User types API SQL OK.")
 PY
 
 if command -v docker >/dev/null 2>&1; then

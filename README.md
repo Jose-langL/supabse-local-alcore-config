@@ -92,6 +92,7 @@ Archivos principales:
 - `docs/oms/SUPABASE_COMPONENT_MATRIX.md`
 - `docs/oms/OPERATIONS_CHECKLIST.md`
 - `docs/oms/SUPABASE_2026_NOTES.md`
+- `docs/oms/API_USER_TYPES_STUDENTS.md`
 - `docs/oms/legacy_to_canonical_mapping.csv`
 - `docs/oms/table_to_entity_mapping.csv`
 
